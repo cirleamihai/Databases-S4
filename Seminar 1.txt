@@ -1,0 +1,73 @@
+- main processes in a data app
+
+1. connecting to data
+2. preparing app to receive data
+3. bringing data into the app
+4. displaying data to user
+5. changing data
+6. validating changes
+7. saving changes
+
+1. bidirectional communication between app and data source
+2. disconnected data model - creating objects that will temporarily store data (e.g datasets)
+3. execute queries/ stored procedures (via data adapter)
+4. data-bound controls
+5. I/ U/ D
+
+		
+		ADO.NET
+- set of classes enabling .NET Framework programmers to interact with a wide variety of data sources
+- .NET Framework data providers
+* .NET Fr data provider for SQL Server
+- System.Data.SqlClient namespace
+- prefix SQL
+* .NET Fr data prov. for Oracle
+- System.Data.OracleClient ns
+- prefix Oracle 
+..
+* 4 core objects: Connection, Command, DataReader, DataAdapter
+
+-- code --
+* SqlConnection
+SqlConnection dbConn = new SqlConnection("Data Source = MyServer; Initial Catalog = myPirateDb; User ID = sysadmin; Password = weakpass");
+// Integrated Security = true /or/ 
+		       = SSPI
+
+// property ConnectionString
+dbConn.Open();
+// property ConnectionTimeout
+// code that executes commands, etc
+dbConn.Close();
+
+// commands code
+SqlCommand cmd = new SqlCommand("Select Count(*) from pirates", dbConn);
+int noP = (int) cmd.ExecuteScalar();
+cmd.CommandText = "INSERT Pirates (PID, PName) Values (1, 'JS')";
+// SqlParameter
+cmd.CommandType = CommandType.Text; // CT.StoredProcedure
+cmd.Connection = dbConn;
+cmd.ExecuteNonQuery();
+
+* DataSet
+- Tables Property (DataTableCollection)
+- Relations Property (DataRelationCollection)
+
+DataTable
+  - Rows (DataRowCollection)
+  - Columns (DataColumnCollection)
+
+* SqlDataAdapter
+// dbConn instaiated
+DataSet ds = new DataSet();
+SqlDataAdapter da = new SqlDataAdapter("Select * from Pirates", dbConn);
+SqlCommandBuilder cb = new SqlCommandBuilder(da);
+da.Fill(ds, "Pirates");
+// Fill checks whether dbConn is opened, if closed, opens it; selects cmd executed, result set returned, new DataTable called Pirates created in dataset ds, filled with result sets from DB; if fill opened dbConn, it closes it
+DataRow dr = ds.Tables["Pirates"].NewRow();
+dr["PID"] = 100;
+dr["PName"] = "ES";
+ds.Tables["Pirates"].Rows.Add(dr);
+da.Update(ds, "Pirates");
+
+
+// each DataRow has a RowState property: Added, Deleted, Modified, Unchanged

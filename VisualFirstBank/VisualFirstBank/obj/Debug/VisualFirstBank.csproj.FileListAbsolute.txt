@@ -1,0 +1,10 @@
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\bin\Debug\VisualFirstBank.exe.config
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\bin\Debug\VisualFirstBank.exe
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\bin\Debug\VisualFirstBank.pdb
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\obj\Debug\VisualFirstBank.csproj.AssemblyReference.cache
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\obj\Debug\VisualFirstBank.Form1.resources
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\obj\Debug\VisualFirstBank.Properties.Resources.resources
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\obj\Debug\VisualFirstBank.csproj.GenerateResource.cache
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\obj\Debug\VisualFirstBank.csproj.CoreCompileInputs.cache
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\obj\Debug\VisualFirstBank.exe
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\VisualFirstBank\VisualFirstBank\obj\Debug\VisualFirstBank.pdb

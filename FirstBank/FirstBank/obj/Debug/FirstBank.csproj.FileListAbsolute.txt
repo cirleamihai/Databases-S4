@@ -1,0 +1,7 @@
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\FirstBank\FirstBank\bin\Debug\FirstBank.exe.config
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\FirstBank\FirstBank\bin\Debug\FirstBank.exe
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\FirstBank\FirstBank\bin\Debug\FirstBank.pdb
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\FirstBank\FirstBank\obj\Debug\FirstBank.csproj.AssemblyReference.cache
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\FirstBank\FirstBank\obj\Debug\FirstBank.csproj.CoreCompileInputs.cache
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\FirstBank\FirstBank\obj\Debug\FirstBank.exe
+C:\Users\test\OneDrive\Desktop\UBB\Databases S2\FirstBank\FirstBank\obj\Debug\FirstBank.pdb
