@@ -8,22 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace VisualFirstBank
 {
     public partial class Form1 : Form
     {
         SqlConnection con;
-        SqlDataAdapter creditCardsAdapter, purchasesAdapter;
+        SqlDataAdapter singleTableAdapter, manyTableAdapter;
         DataSet dset;
-        SqlCommandBuilder creditCardsCommandBuilder;
-        BindingSource creditCardsBindingSource, purchasesBindingSource;
-        string queryCreditCards = "SELECT * FROM CreditCards";
-        string queryPurchases = "SELECT * FROM Purchases";
-        string connectionString = "Data Source=Tudoryka\\SQLEXPRESS;Initial Catalog=FirstBank;Integrated Security=True";
+        SqlCommandBuilder singleTableBuilder;
+        BindingSource singleTableSource, manyTableSource;
+        String singleTable = ConfigurationManager.AppSettings["SingleTableAdapter"];
+        String manyTable = ConfigurationManager.AppSettings["ManyTableAdapter"];
+        String singleTableColumnName = ConfigurationManager.AppSettings["SingleTableColumnName"];
+        String manyTableColumnName = ConfigurationManager.AppSettings["ManyTableColumnName"];
+        String querySingleTable;
+        String queryManyTable;
+        String connectionString = "Data Source=Tudoryka\\SQLEXPRESS;Initial Catalog=FirstBank;Integrated Security=True";
 
         public Form1()
         {
+            querySingleTable = $"SELECT * FROM {singleTable}";
+            queryManyTable = $"SELECT * FROM {manyTable}";
+
             InitializeComponent();
             FillData();
         }
@@ -33,30 +41,30 @@ namespace VisualFirstBank
             // Initialize the Sql Connection
             con = new SqlConnection(connectionString);
 
-            creditCardsAdapter = new SqlDataAdapter(queryCreditCards, con);
-            purchasesAdapter = new SqlDataAdapter(queryPurchases, con);
+            singleTableAdapter = new SqlDataAdapter(querySingleTable, con);
+            manyTableAdapter = new SqlDataAdapter(queryManyTable, con);
 
             dset = new DataSet();
-            creditCardsAdapter.Fill(dset, "CreditCards");
-            purchasesAdapter.Fill(dset, "Purchases");
+            singleTableAdapter.Fill(dset, singleTable);
+            manyTableAdapter.Fill(dset, manyTable);
 
             // Preparing for insert, update and delete commands
-            creditCardsCommandBuilder = new SqlCommandBuilder(purchasesAdapter);
+            singleTableBuilder = new SqlCommandBuilder(manyTableAdapter);
 
+            String relationshipName = $"FK_{singleTable}{manyTable}";
             // DataRelation
-            dset.Relations.Add("CardPurchases",
-                dset.Tables["CreditCards"].Columns["card_id"],
-                dset.Tables["Purchases"].Columns["card_id"]);
+            dset.Relations.Add(relationshipName,
+                dset.Tables[singleTable].Columns[singleTableColumnName],
+                dset.Tables[manyTable].Columns[manyTableColumnName]);
 
             // Binding sources
-            creditCardsBindingSource = new BindingSource();
-            creditCardsBindingSource.DataSource = dset.Tables["CreditCards"];
-            purchasesBindingSource = new BindingSource(creditCardsBindingSource, "CardPurchases");
+            singleTableSource = new BindingSource(dset, singleTable);
+            manyTableSource = new BindingSource(singleTableSource, relationshipName);
 
-            this.dataGridView1.DataSource = purchasesBindingSource;
-            this.dataGridView2.DataSource = creditCardsBindingSource;
+            this.dataGridView1.DataSource = manyTableSource;
+            this.dataGridView2.DataSource = singleTableSource;
 
-            creditCardsCommandBuilder.GetUpdateCommand();
+            singleTableBuilder.GetUpdateCommand();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -66,7 +74,12 @@ namespace VisualFirstBank
 
         private void button1_Click(object sender, EventArgs e)
         {
-            purchasesAdapter.Update(dset, "Purchases");
+            manyTableAdapter.Update(dset, manyTable);
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void label1_Click(object sender, EventArgs e)
